@@ -1,5 +1,6 @@
 package com.htsc.cams.common.dynamicquery;
 
+import jdk.nashorn.internal.ir.CallNode;
 import org.hibernate.SQLQuery;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
@@ -81,11 +82,21 @@ public class DynamicQueryImpl implements DynamicQuery{
 
     @Override
     public Object nativeQueryObject(String nativeSql, Object... params) {
+        int size = createNativeQuery(nativeSql, params).getResultList().size();
+        if(size==0){
+            System.out.println("The result is empty");
+            return null;
+        }
         return createNativeQuery(nativeSql,params).getSingleResult();
     }
 
     @Override
     public  Object[] nativeQueryArray(String nativeSql, Object... params) {
+        int size = createNativeQuery(nativeSql, params).getResultList().size();
+        if(size==0){
+            System.out.println("The result is empty");
+            return null;
+        }
         return (Object[])createNativeQuery(nativeSql,params).getSingleResult();
     }
 

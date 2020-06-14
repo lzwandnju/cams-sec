@@ -48,7 +48,7 @@ public class SeckillServiceImpl implements ISeckillService {
 
     @Override
     public Long getSeckillCount(long seckillId) {
-        String nativeSql = "SELECT count(*) FROM success_killed WHRRE seckill)id = ?";
+        String nativeSql = "SELECT count(*) FROM success_killed WHERE seckill_id = ?";
         Object object = dynamicQuery.nativeQueryObject(nativeSql,new Object[]{seckillId});
         return  ((Number)object).longValue();
     }
@@ -69,7 +69,8 @@ public class SeckillServiceImpl implements ISeckillService {
         String sql = "SELECT number FROM seckill WHERE seckill_id=?";
         long number = checkExist(sql, seckillId);
         String newSql = "UPDATE seckill  SET number=number-1 WHERE seckill_id=?";
-        return startSeckillTemplate(newSql,number,seckillId,userId,false);
+        Result result = startSeckillTemplate(newSql, number, seckillId, userId, false);
+        return result;
     }
 
     @Override
