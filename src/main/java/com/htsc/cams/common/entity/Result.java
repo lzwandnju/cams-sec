@@ -32,6 +32,12 @@ public class Result extends HashMap<String,Object> {
         return r;
     }
 
+    public static Result ok(Object msg){
+        Result r = new Result();
+        r.put("msg",msg);
+        return r;
+    }
+
     public static Result ok(Map<String ,Object> map){
         Result r = new Result();
         r.putAll(map);
